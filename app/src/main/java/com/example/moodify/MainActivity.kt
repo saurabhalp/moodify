@@ -20,10 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MoodifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    MoodTuneApp(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

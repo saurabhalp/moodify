@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -33,11 +34,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
 
-// 📁 MoodTuneApp.kt
-// Main Navigation Setup
-
 @Composable
-fun MoodTuneApp() {
+fun MoodTuneApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "splash") {
         composable("splash") { SplashScreen(navController) }
@@ -61,7 +59,7 @@ fun SplashScreen(navController: NavController) {
         navController.navigate("home")
     }
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("MoodTune", fontSize = 32.sp, fontWeight = FontWeight.Bold)
+        Text("Moodify", fontSize = 32.sp, fontWeight = FontWeight.Bold)
     }
 }
 
@@ -146,4 +144,11 @@ fun MusicScreen(navController: NavController, mood: String) {
             Text("Back to Camera")
         }
     }
+}
+
+
+@Preview
+@Composable
+fun SCpreview(){
+    MusicScreen(navController = rememberNavController(),"sad")
 }
