@@ -1,8 +1,6 @@
 package com.example.moodify
-
-import androidx.compose.foundation.background
+import CameraScreen
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,10 +30,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.moodify.ui.theme.screens.MusicScreen
+import com.example.moodify.ui.theme.screens.SplashScreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun MoodTuneApp(modifier: Modifier = Modifier) {
+fun MoodTuneApp(modifier: Modifier) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "splash") {
         composable("splash") { SplashScreen(navController) }
@@ -51,48 +51,6 @@ fun MoodTuneApp(modifier: Modifier = Modifier) {
     }
 }
 
-// 📄 SplashScreen.kt
-@Composable
-fun SplashScreen(navController: NavController) {
-    LaunchedEffect(true) {
-        delay(2000)
-        navController.navigate("home")
-    }
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Moodify", fontSize = 32.sp, fontWeight = FontWeight.Bold)
-    }
-}
-
-// 📄 CameraScreen.kt
-@Composable
-fun CameraScreen(navController: NavController) {
-    Column(
-        Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text("Scan your Mood", fontSize = 24.sp)
-        Spacer(Modifier.height(20.dp))
-        Box(
-            modifier = Modifier
-                .size(300.dp)
-                .background(Color.Gray),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("[Camera Preview Here]", color = Color.White)
-        }
-        Spacer(Modifier.height(20.dp))
-        Button(onClick = {
-            // TODO: Implement camera capture and ML model integration
-            val dummyMood = "Happy"
-            navController.navigate("result/$dummyMood")
-        }) {
-            Text("Scan My Mood")
-        }
-    }
-}
-
-// 📄 ResultScreen.kt
 @Composable
 fun ResultScreen(navController: NavController, mood: String) {
     Column(
@@ -110,45 +68,4 @@ fun ResultScreen(navController: NavController, mood: String) {
             Text("Scan Again")
         }
     }
-}
-
-// 📄 MusicScreen.kt
-@Composable
-fun MusicScreen(navController: NavController, mood: String) {
-    val musicList = mapOf(
-        "Happy" to listOf("Happy Song 1", "Dance Vibes"),
-        "Sad" to listOf("Lo-fi Chill", "Soft Piano"),
-        "Angry" to listOf("Rock Beats", "Workout Pump")
-    )[mood] ?: listOf("Generic Tune 1", "Generic Tune 2")
-
-    Column(
-        Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text("Suggested Music for $mood", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-        Spacer(Modifier.height(10.dp))
-        musicList.forEach { song ->
-            Card(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                elevation = CardDefaults.cardElevation(4.dp)
-            ) {
-                Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painter = painterResource(R.drawable.ic_launcher_foreground),null)
-                    Spacer(Modifier.width(10.dp))
-                    Text(song)
-                }
-            }
-        }
-        Spacer(Modifier.height(20.dp))
-        OutlinedButton(onClick = { navController.popBackStack("home", inclusive = false) }) {
-            Text("Back to Camera")
-        }
-    }
-}
-
-
-@Preview
-@Composable
-fun SCpreview(){
-    MusicScreen(navController = rememberNavController(),"sad")
 }
