@@ -38,6 +38,13 @@ android {
     buildFeatures {
         compose = true
     }
+    sourceSets {
+        getByName("main") {
+            assets {
+                srcDirs("src\\main\\assets", "src\\main\\assets")
+            }
+        }
+    }
 
 
     dependencies {
@@ -84,6 +91,9 @@ android {
         // CameraX Extensions (optional)
         implementation ("androidx.camera:camera-extensions:1.3.0")
         implementation ("org.tensorflow:tensorflow-lite:2.13.0")
+
+        implementation ("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
+
     }
 
     }
